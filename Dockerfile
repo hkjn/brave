@@ -9,7 +9,7 @@ RUN chown brave:brave /usr/lib/node_modules
 USER brave
 RUN npm install -g bloom-filter-cpp
 USER root
-RUN npm install -g node-gyp@3.2.1 &&
+RUN npm install -g node-gyp@3.2.1 && \
     apk add --no-cache xvfb libgnome-keyring-dev
 # RUN apk add --no-cache gnome-keyring
 USER brave
