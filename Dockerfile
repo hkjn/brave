@@ -6,6 +6,7 @@ RUN apk add --no-cache python g++ && \
     adduser brave -D && \
     apk add --no-cache make git nodejs python && \
     chown brave:brave /usr/lib/node_modules
+# TODO(hkjn): Understand why the bloom-filter-cpp package needs to be installed as nonprivileged user.
 USER brave
 RUN npm install -g bloom-filter-cpp
 USER root
@@ -17,12 +18,12 @@ WORKDIR /home/brave/
 RUN mkdir -p src/github.com/brave && \
     cd src/github.com/brave && \
     git clone https://github.com/brave/browser-laptop
-# TODO(hkjn): Find why binding.gyp is missing:
+WORKDIR /home/brave/src/github.com/brave/browser-laptop
+# TODO(hkjn): Find why binding.gyp isn't found:
 # gyp: binding.gyp not found (cwd: /home/brave/src/github.com/brave/browser-laptop/node_modules/lru_cache) while trying to load binding.gyp
+RUN npm install
 # TODO(hkjn): Find why "npm install" looks for node-gyp in the wrong place:
 # /bin/sh: ./node_modules/.bin/node-gyp: not found
-WORKDIR /home/brave/src/github.com/brave/browser-laptop
-RUN npm install
 WORKDIR /home/brave/src/github.com/brave/browser-laptop/node_modules/abp-filter-parser-cpp
 RUN make
 
