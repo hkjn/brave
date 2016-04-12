@@ -2,16 +2,16 @@ FROM alpine
 
 MAINTAINER Henrik Jonsson <me@hkjn.me>
 
-RUN apk add --no-cache python g++
-RUN adduser brave -D
-RUN apk add --no-cache make git nodejs python
-RUN chown brave:brave /usr/lib/node_modules
+RUN apk add --no-cache python g++ && \
+    adduser brave -D && \
+    apk add --no-cache make git nodejs python && \
+    chown brave:brave /usr/lib/node_modules
 USER brave
 RUN npm install -g bloom-filter-cpp
 USER root
+
 RUN npm install -g node-gyp@3.2.1 && \
     apk add --no-cache xvfb libgnome-keyring-dev
-# RUN apk add --no-cache gnome-keyring
 USER brave
 WORKDIR /home/brave/
 RUN mkdir -p src/github.com/brave && \
