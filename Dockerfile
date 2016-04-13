@@ -30,8 +30,8 @@ WORKDIR /home/brave/src/github.com/brave/browser-laptop
 
 # TODO(hkjn): Find why binding.gyp isn't found / what if anything breaks due to this:
 # gyp: binding.gyp not found (cwd: /home/brave/src/github.com/brave/browser-laptop/node_modules/lru_cache) while trying to load binding.gyp
-RUN npm install && \
-    npm run lint
+RUN npm install
+RUN npm run lint
 # TODO(hkjn): Re-enable building abp-filter-parser-cpp, if it is
 # indeed necessary. If so we need to find why "npm install" looks for
 # node-gyp in the wrong place:
