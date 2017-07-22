@@ -13,7 +13,7 @@ USER root
 
 RUN npm install -g node-gyp@3.2.1 && \
     apk add --no-cache xvfb libgnome-keyring-dev
-RUN npm install -g mocha babel-register
+RUN npm install -g mocha babel-register electron
 USER brave
 WORKDIR /home/brave/
 RUN mkdir -p src/github.com/brave && \
